@@ -7,6 +7,9 @@
 const char* ssid = "TP-LINK_85E310";
 const char* password =  "mUkUnAqaz.12345.wsx";
 
+String FIREBASE_DATABSE_URL = "https://firestore.googleapis.com";
+String FIREBASE_APIKEY = "AIzaSyBZPJpezs1V-yfyKbo8T7-0uOS60zAT44E";
+
 void setup() {
  
   Serial.begin(115200);
@@ -30,38 +33,25 @@ void loop() {
  
    HTTPClient http;   
 
-   //String url = "https://firestore.googleapis.com/v1beta1/projects/cloud-firestore-test-62d13/databases/(default)/documents/items?&key=AIzaSyBZPJpezs1V-yfyKbo8T7-0uOS60zAT44E";
-   http.begin("https://firestore.googleapis.com/v1beta1/projects/cloud-firestore-test-62d13/databases/(default)/documents/items?&key=AIzaSyBZPJpezs1V-yfyKbo8T7-0uOS60zAT44E");  //Specify destination for HTTP request
-   //http.begin("http://jsonplaceholder.typicode.com/posts");  //Specify destination for HTTP request
+   String url = FIREBASE_DATABSE_URL + "/v1beta1/projects/cloud-firestore-test-62d13/databases/(default)/documents/items?&key=" + FIREBASE_APIKEY;
+   http.begin(url);  //Specify destination for HTTP request
    http.addHeader("Content-Type", "application/json");             //Specify content-type header
    
 
    StaticJsonBuffer<300> JSONbuffer;   //Declaring static JSON buffer
     JsonObject& JSONencoder = JSONbuffer.createObject(); 
  
-    JSONencoder["fields"] = JSONbuffer.createObject();
-    JSONencoder["fields"]["aa"] = JSONbuffer.createObject();
-    JSONencoder["fields"]["aa"]["stringValue"] = "dcdcdc";
-// 
-//    JsonArray& values = JSONencoder.createNestedArray("values"); //JSON array
-//    values.add(20); //Add value to array
-//    values.add(21); //Add value to array
-//    values.add(23); //Add value to array
-// 
-//    JsonArray& timestamps = JSONencoder.createNestedArray("timestamps"); //JSON array
-//    timestamps.add("10:10"); //Add value to array
-//    timestamps.add("10:20"); //Add value to array
-//    timestamps.add("10:30"); //Add value to array
+    JSONencoder["fields"] = JSONbuffer.createObject();// Declare main object as field (must)
+    JSONencoder["fields"]["aa"] = JSONbuffer.createObject();// define a field want to save(must)
+    JSONencoder["fields"]["aa"]["stringValue"] = "dcdcdc";// define above field data type(must)
  
     char JSONmessageBuffer[300];
     JSONencoder.prettyPrintTo(JSONmessageBuffer, sizeof(JSONmessageBuffer));
     Serial.println(JSONmessageBuffer);
+    
+    int httpResponseCode = http.POST(JSONmessageBuffer);   //Send the actual POST request
 
-
-   
-   int httpResponseCode = http.POST(JSONmessageBuffer);   //Send the actual POST request
-
-   Serial.println("Sending data Res Code: "+String(httpResponseCode));
+    Serial.println("Sending data Res Code: "+String(httpResponseCode));
       
    if(httpResponseCode>0){
 
@@ -86,7 +76,7 @@ void loop() {
  
  }
  
-  delay(1000);  //Send a request every 10 seconds
+  delay(1000);  //Send a request every 1 seconds
  
 }
 
