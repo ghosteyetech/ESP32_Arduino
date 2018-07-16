@@ -1,0 +1,16 @@
+curl -X POST \
+-H "Content-Type: application/json" \
+-d'{
+"fields": {
+"Field1": {
+"stringValue": "rrfer"
+},
+"Field2": {
+"stringValue": "efref"
+},
+"Field3": {
+"stringValue": "sererve"
+}
+}
+}' \
+'https://firestore.googleapis.com/v1beta1/projects/cloud-firestore-test-62d13/databases/(default)/documents/items?&key=AIzaSyBZPJpezs1V-yfyKbo8T7-0uOS60zAT44E'
