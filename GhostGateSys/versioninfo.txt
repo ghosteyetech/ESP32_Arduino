@@ -1,0 +1,4 @@
+Ver1:
+Finished connect to GServer , Connecting and send GET request and get response then deep sleep 
+when GClient got a external IO interrupt using VIN pin in Dev module.
+VIN pin is PUll down using 1k resistor.
