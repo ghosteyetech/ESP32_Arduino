@@ -14,3 +14,16 @@ curl -X POST \
 }
 }' \
 'https://firestore.googleapis.com/v1beta1/projects/cloud-firestore-test-62d13/databases/(default)/documents/items?&key=AIzaSyBZPJpezs1V-yfyKbo8T7-0uOS60zAT44E'
+
+//////////////////////
+Get documents
+===================
+
+curl 'https://firestore.googleapis.com/v1beta1/projects/cloud-firestore-test-62d13/databases/(default)/documents/items?&key=AIzaSyBZPJpezs1V-yfyKbo8T7-0uOS60zAT44E&auth=123'
+
+curl 'https://firestore.googleapis.com/v1beta1/projects/cloud-firestore-test-62d13/databases/(default)/documents/items/uiwKbfq6b3YFznwrAjQY?&key=AIzaSyBZPJpezs1V-yfyKbo8T7-0uOS60zAT44E'
+
+
+curl 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=AIzaSyBZPJpezs1V-yfyKbo8T7-0uOS60zAT44E' \
+-H 'Content-Type: application/json' \
+--data-binary '{"token":"[CUSTOM_TOKEN]","returnSecureToken":true}'
